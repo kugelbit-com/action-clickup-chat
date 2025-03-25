@@ -1,0 +1,34 @@
+name: "Clickup Chat Message"
+description: "Send messages to a clickup notification channel"
+inputs:
+  key: # id of input
+    description: "Api key"
+    required: true
+  type:
+    description: Type of message
+    default: message
+  format:
+    description: Format of message
+    default: "text/md"
+  content:
+    description: content of message
+    required: true
+  channel:
+    description: Id of channel to publish message
+    required: true
+  workspaceId:
+    description: Id of workspace
+    required: true
+  apiUrl:
+    description: Clickup api url
+    default: https://api.clickup.com
+outputs:
+  messageId:
+    description: "The id of created message"
+  response-status:
+    description: Http response status
+  response-data:
+    description: Http response data
+runs:
+  using: "node20"
+  main: "dist/index.js"
