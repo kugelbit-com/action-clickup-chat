@@ -39,7 +39,9 @@ export async function run(): Promise<void> {
     core.setOutput("response-data", responseData);
 
     core.setOutput("messageId", response.data?.id);
-    core.info(`API request succeeded with status code ${response.status.toString()}`);
+    core.info(
+      `API request succeeded with status code ${response.status.toString()}`
+    );
   } catch (error: any) {
     core.info(`Response error ${JSON.stringify(error)}`);
     core.setFailed(`API request failed: ${error?.message}`);
