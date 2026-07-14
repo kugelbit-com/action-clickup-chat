@@ -5,25 +5,24 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist pnpm-lock.yaml node_modules",
-    "bundle": "run format:write && run package",
-    "ci-test": "jest",
+    "preinstall": "npx only-allow pnpm",
+    "bundle": "pnpm run format:write && pnpm run package",
+    "ci-test": "pnpm jest",
     "format:write": "prettier --cache --write .",
     "format:check": "prettier --check .",
     "lint": "eslint --cache --cache-strategy content --report-unused-disable-directives .",
-    "package": "tsc && ncc build src/index.ts -o dist --source-map --license licenses.txt",
-    "package:watch": "run package --watch",
-    "test": "jest --coverage --verbose",
-    "prepublishOnly": "run clean && install && run build",
-    "preflight": "install && run format:write && run lint && run test && run package"
+    "package": "pnpm ncc build src/index.ts -o dist --source-map --license licenses.txt",
+    "package:watch": "pnpm run package --watch",
+    "test": "pnpm jest --coverage --verbose",
+    "prepublishOnly": "pnpm run clean && pnpm install && pnpm run build",
+    "preflight": "pnpm install && pnpm run format:write && pnpm run lint && pnpm run test && pnpm run package"
   },
   "keywords": [
     "actions"
   ],
   "author": "Giovanni Silva",
   "license": "Apache-2.0",
-  "engines": {
-    "node": ">=24"
-  },
+  "packageManager": "pnpm@10.6.5",
   "jest": {
     "preset": "ts-jest",
     "verbose": true,
@@ -54,16 +53,16 @@
     ]
   },
   "dependencies": {
-    "@actions/core": "^3.0.1",
-    "@actions/github": "^9.1.1",
-    "axios": "^1.8.1"
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "axios": "1.8.4"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
-    "@types/node": "^24.1.0",
+    "@types/node": "22.13.11",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
-    "@vercel/ncc": "^0.44.1",
+    "@vercel/ncc": "^0.38.1",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.3",
@@ -72,6 +71,6 @@
     "rimraf": "6.0.1",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.4.5"
   }
 }
